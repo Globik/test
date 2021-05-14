@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+        nodejs:
+           container_name: nodejs
+           image: nodejs
+           restart: unless-stopped
+           build:
+              context: .
+              dockerfile: Dockerfile
+           ports:
+             - "3000:3000"
+           network_mode: "host"
+           volumes:
+             - .:/home/node/app
+             - node_modules:/home/node/app/node_modules  
+        mongo:
+          container_name: mongo
+          image: mongo:3.2.4
+          restart: unless-stopped
+          environment:
+             - MONGO_INITDB_ROOT_USERNAME=globi"
+             - MONGO_INITDB_ROOT_PASSWORD=globi
+          volumes:
+             - dbdata:/data/db
+          ports:
+             - "27017:27017"
+          network_mode: "host"
+          
+volumes:
+    dbdata:
+    node_modules:
+        
