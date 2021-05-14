@@ -1,4 +1,21 @@
 <html>
-<head><title>hello world</title></head>
-<body><h1>Hello world!</h1></body>
+<head><title>hello world</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body><h1>Hello world!</h1>
+<button onclick="fetch_all()">fetch all</button><br>
+<button onclick="set_todo();">set todo</button>
+<script>
+function fetch_all(){
+	axios.get('/todos').then(res=>{
+		console.log("res: ", res);
+		}).catch(err=>{
+		alert(err)
+		})
+	}
+	function set_todo(){
+		axios.post('/newTodo',{text:'blabla'}).then(res=>{console.log(res)}).catch(err=>{alert(err)})
+		}
+</script>
+</body>
 </html>

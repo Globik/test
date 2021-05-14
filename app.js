@@ -1,8 +1,10 @@
 var express=require('express');
-var path=require('path');
-var app=express();
-const mongoose=require("mongoose");
-const dburl="mongodb://globi:globi@127.0.0.1:27017/admin?authSourse=globi";
+var path = require('path');
+var app = express();
+var bodyParser = require('body-parser')
+const mongoose = require("mongoose");
+const dburl = "mongodb://globi:globi@127.0.0.1:27017/admin?authSourse=globi";
+const router = require('./routes/todoRoutes.js');
 const opts = {
 	useNewUrlParser: true,
 	//reconnectTries: Number.MAX_VALUE,
@@ -13,8 +15,11 @@ const opts = {
 app.set('port',3000);
 //app.use('static',express.static(path.join(__dirname,'./html')));
 app.use(express.static('html'));
-var server=app.listen(app.get('port'),function(){
-var port=server.address().port;
+app.use(bodyParser.json());
+app.use(router);
+
+var server = app.listen(app.get('port'),function(){
+var port = server.address().port;
 console.log("soll on port: ", port);
 
 mongoose.connect(dburl, opts).then(function(){
